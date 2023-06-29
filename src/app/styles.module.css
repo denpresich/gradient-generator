@@ -13,19 +13,20 @@
   transform: translateX(-50%);
 }
 
-.FormField {
+.TypeSelector {
+  display: flex;
+  gap: 36px;
+  align-items: center;
+}
+
+.DegField {
   display: inline-flex;
-  flex-direction: column;
-  gap: 4px;
+  gap: 8px;
+  align-items: center;
 }
 
-.FormLabel {
-  color: #212121;
-  font-weight: 500;
-}
-
-.FormInput {
-  border: 1px solid lightgray;
-  border-radius: 4px;
-  padding: 8px 16px;
+.DegField_Label {
+  text-transform: uppercase;
+  color: #9A9A9A;
+  font-size: 12px;
 }

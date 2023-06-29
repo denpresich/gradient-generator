@@ -6,6 +6,7 @@ import * as Form from "@radix-ui/react-form";
 
 import { TypeToggle } from "@/components/TypeToggle";
 import { Colors } from "@/components/Colors";
+import { Input } from "@/components/Input";
 
 import styles from "./styles.module.css";
 
@@ -93,31 +94,34 @@ export default function Home() {
       style={{ backgroundImage: gradient }}
     >
       <div className={styles.Panel}>
-        <TypeToggle
-          value={state.type}
-          onChange={(type) =>
-            dispatch({ type: "UPDATE_TYPE", payload: { type } })
-          }
-        />
-        {state.type === GradientType.LINEAR && (
-          <Form.Root>
-            <Form.Field className={styles.FormField} name="deg">
-              <Form.Label className={styles.FormLabel}>Deg</Form.Label>
-              <Form.Control
-                className={styles.FormInput}
-                type="number"
-                min={0}
-                max={360}
-                onChange={(e) =>
-                  dispatch({
-                    type: "UPDATE_DEG",
-                    payload: { deg: Number(e.target.value) },
-                  })
-                }
-              />
-            </Form.Field>
-          </Form.Root>
-        )}
+        <div className={styles.TypeSelector}>
+          <TypeToggle
+            value={state.type}
+            onChange={(type) =>
+              dispatch({ type: "UPDATE_TYPE", payload: { type } })
+            }
+          />
+          {state.type === GradientType.LINEAR && (
+            <Form.Root>
+              <Form.Field className={styles.DegField} name="deg">
+                <Form.Label className={styles.DegField_Label}>Deg</Form.Label>
+                <Form.Control asChild>
+                  <Input
+                    type="number"
+                    min={0}
+                    max={360}
+                    onChange={(e) =>
+                      dispatch({
+                        type: "UPDATE_DEG",
+                        payload: { deg: Number(e.target?.value) },
+                      })
+                    }
+                  />
+                </Form.Control>
+              </Form.Field>
+            </Form.Root>
+          )}
+        </div>
         <Colors colors={state.colors} />
       </div>
     </main>
