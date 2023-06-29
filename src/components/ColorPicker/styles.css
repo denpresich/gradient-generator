@@ -1,0 +1,24 @@
+.ColorPicker .react-colorful {
+  width: 232px;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ColorPicker .react-colorful__saturation {
+  height: 152px;
+  border-radius: 4px;
+}
+
+.ColorPicker .react-colorful__saturation-pointer,
+.ColorPicker .react-colorful__hue-pointer,
+.ColorPicker .react-colorful__alpha-pointer {
+  height: 14px;
+  width: 14px;
+}
+
+.ColorPicker .react-colorful__hue,
+.ColorPicker .react-colorful__alpha {
+  height: 8px;
+  border-radius: 100px;
+}

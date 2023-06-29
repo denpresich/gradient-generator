@@ -25,6 +25,9 @@
 
 .ColorArea {
   grid-area: color;
+  display: grid;
+  gap: 40px;
+  grid-template-rows: 1fr 1fr;
 }
 
 .CodeArea {
@@ -56,5 +59,10 @@
       'color color code code';
     grid-template-rows: 40px 100%;
     width: 80%;
+  }
+
+  .ColorArea {
+    grid-template-columns: min-content 1fr;
+    grid-template-rows: 1fr;
   }
 }

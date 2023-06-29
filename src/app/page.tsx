@@ -9,12 +9,12 @@ import cn from "classnames";
 import { TypeToggle } from "@/components/TypeToggle";
 import { Colors } from "@/components/Colors";
 import { Input } from "@/components/Input";
+import { ColorPicker } from "@/components/ColorPicker";
 
 import styles from "./styles.module.css";
 
 import { GradientType, Color } from "@/shared/types";
 
-import { random as randomColor } from "@/utils/color";
 import { composeLinearGradient, composeRadialGradient } from "@/utils/color";
 
 type State = {
@@ -134,6 +134,7 @@ export default function Home() {
               })
             }
           />
+          <ColorPicker />
         </div>
         <div className={styles.CodeArea}>Code block</div>
       </div>
