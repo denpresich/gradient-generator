@@ -74,9 +74,9 @@ function reducer(state: State, action: Action): State {
 export default function Home() {
   const [state, dispatch] = React.useReducer(reducer, {
     colors: [
-      { id: "1", hex: randomColor(), position: 0 },
-      { id: "2", hex: randomColor(), position: 50 },
-      { id: "3", hex: randomColor(), position: 100 },
+      { id: "1", hex: "#cb4df2", position: 0 },
+      { id: "2", hex: "#26c56b", position: 50 },
+      { id: "3", hex: "#35a232", position: 100 },
     ],
     deg: 90,
     type: GradientType.LINEAR,
@@ -125,7 +125,15 @@ export default function Home() {
           )}
         </div>
         <div className={styles.ColorArea}>
-          <Colors colors={state.colors} />
+          <Colors
+            colors={state.colors}
+            onChange={(id: string, color: Color) =>
+              dispatch({
+                type: "UPDATE_COLOR",
+                payload: { id, color },
+              })
+            }
+          />
         </div>
         <div className={styles.CodeArea}>Code block</div>
       </div>
