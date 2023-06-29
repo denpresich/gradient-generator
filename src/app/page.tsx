@@ -4,6 +4,8 @@ import React from "react";
 
 import * as Form from "@radix-ui/react-form";
 
+import cn from "classnames";
+
 import { TypeToggle } from "@/components/TypeToggle";
 import { Colors } from "@/components/Colors";
 import { Input } from "@/components/Input";
@@ -94,7 +96,7 @@ export default function Home() {
       style={{ backgroundImage: gradient }}
     >
       <div className={styles.Panel}>
-        <div className={styles.TypeSelector}>
+        <div className={cn(styles.TypeSelector, styles.ToggleArea)}>
           <TypeToggle
             value={state.type}
             onChange={(type) =>
@@ -122,7 +124,10 @@ export default function Home() {
             </Form.Root>
           )}
         </div>
-        <Colors colors={state.colors} />
+        <div className={styles.ColorArea}>
+          <Colors colors={state.colors} />
+        </div>
+        <div className={styles.CodeArea}>Code block</div>
       </div>
     </main>
   );
