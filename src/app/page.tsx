@@ -3,57 +3,88 @@
 import React from "react";
 
 import * as Form from "@radix-ui/react-form";
-import * as Select from "@radix-ui/react-select";
-import { ChevronDownIcon, CheckIcon } from "@radix-ui/react-icons";
 
-import { TypeToggle, GradientType } from "@/components/TypeToggle";
+import { TypeToggle } from "@/components/TypeToggle";
+import { Colors } from "@/components/Colors";
 
 import styles from "./styles.module.css";
 
+import { GradientType, Color } from "@/shared/types";
+
 import { random as randomColor } from "@/utils/color";
+import { composeLinearGradient, composeRadialGradient } from "@/utils/color";
 
-type Color = {
-  hash: string;
-  position: number;
+type State = {
+  colors: Color[];
+  deg: number;
+  type: GradientType;
 };
 
-const getLinearGradient = (colors: Color[], deg: number) => {
-  const gradient = `linear-gradient(${deg}deg, ${colors
-    .map(({ hash, position }) => `${hash} ${position}%`)
-    .join(", ")})`;
-  return gradient;
-};
+type Action =
+  | { type: "ADD_COLOR"; payload: { color: Color } }
+  | { type: "REMOVE_COLOR"; payload: { id: string } }
+  | { type: "UPDATE_COLOR"; payload: { id: string; color: Color } }
+  | { type: "UPDATE_DEG"; payload: { deg: number } }
+  | { type: "UPDATE_TYPE"; payload: { type: GradientType } };
 
-const getRadialGradient = (colors: Color[]) => {
-  const gradient = `radial-gradient(${colors
-    .map(({ hash, position }) => `${hash} ${position}%`)
-    .join(", ")})`;
-  return gradient;
-};
-
-const getGradient = (colors: Color[], deg: number, type: GradientType) => {
-  switch (type) {
-    case GradientType.LINEAR:
-      return getLinearGradient(colors, deg);
-    case GradientType.RADIAL:
-      return getRadialGradient(colors);
+function reducer(state: State, action: Action): State {
+  switch (action.type) {
+    case "ADD_COLOR": {
+      return {
+        ...state,
+        colors: [...state.colors, action.payload.color],
+      };
+    }
+    case "REMOVE_COLOR": {
+      const { id } = action.payload;
+      return {
+        ...state,
+        colors: state.colors.filter((c) => c.id !== id),
+      };
+    }
+    case "UPDATE_COLOR": {
+      const { id, color } = action.payload;
+      return {
+        ...state,
+        colors: state.colors.map((c) => (c.id === id ? color : c)),
+      };
+    }
+    case "UPDATE_DEG": {
+      const { deg } = action.payload;
+      return {
+        ...state,
+        deg,
+      };
+    }
+    case "UPDATE_TYPE": {
+      const { type } = action.payload;
+      return {
+        ...state,
+        type,
+      };
+    }
     default:
-      return getLinearGradient(colors, deg);
+      return state;
   }
-};
+}
 
 export default function Home() {
-  const [colors, setColors] = React.useState([
-    { hash: randomColor(), position: 0 },
-    { hash: randomColor(), position: 50 },
-    { hash: randomColor(), position: 100 },
-  ]);
-  const [deg, setDeg] = React.useState(90);
-  const [type, setType] = React.useState(GradientType.LINEAR);
+  const [state, dispatch] = React.useReducer(reducer, {
+    colors: [
+      { id: "1", hex: randomColor(), position: 0 },
+      { id: "2", hex: randomColor(), position: 50 },
+      { id: "3", hex: randomColor(), position: 100 },
+    ],
+    deg: 90,
+    type: GradientType.LINEAR,
+  });
 
   const gradient = React.useMemo(
-    () => getGradient(colors, deg, type),
-    [colors, deg, type]
+    () =>
+      state.type === GradientType.LINEAR
+        ? composeLinearGradient(state.colors, state.deg)
+        : composeRadialGradient(state.colors),
+    [state.colors, state.deg, state.type]
   );
 
   return (
@@ -63,9 +94,31 @@ export default function Home() {
     >
       <div className={styles.Panel}>
         <TypeToggle
-          value={type}
-          onChange={(value) => setType(value as GradientType)}
+          value={state.type}
+          onChange={(type) =>
+            dispatch({ type: "UPDATE_TYPE", payload: { type } })
+          }
         />
+        {state.type === GradientType.LINEAR && (
+          <Form.Root>
+            <Form.Field className={styles.FormField} name="deg">
+              <Form.Label className={styles.FormLabel}>Deg</Form.Label>
+              <Form.Control
+                className={styles.FormInput}
+                type="number"
+                min={0}
+                max={360}
+                onChange={(e) =>
+                  dispatch({
+                    type: "UPDATE_DEG",
+                    payload: { deg: Number(e.target.value) },
+                  })
+                }
+              />
+            </Form.Field>
+          </Form.Root>
+        )}
+        <Colors colors={state.colors} />
       </div>
     </main>
   );

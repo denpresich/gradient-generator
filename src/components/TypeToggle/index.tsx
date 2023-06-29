@@ -4,10 +4,7 @@ import styles from "./styles.module.css";
 
 import * as ToggleGroup from "@radix-ui/react-toggle-group";
 
-export enum GradientType {
-  LINEAR = "linear",
-  RADIAL = "radial",
-}
+import { GradientType } from "@/shared/types";
 
 export interface TypeToggleProps {
   value: GradientType;

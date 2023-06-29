@@ -1,0 +1,18 @@
+.Color {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ColorBox {
+  height: 48px;
+  width: 48px;
+  padding: 4px;
+  border-radius: 4px;
+  border: 1px solid lightgray;
+}
+
+.ColorBoxBg {
+  height: 100%;
+  width: 100%;
+}
