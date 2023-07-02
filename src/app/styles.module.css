@@ -1,3 +1,8 @@
+.Background {
+  width: 100%;
+  height: 50vh;
+}
+
 .Panel {
   display: grid;
   grid-template-areas:
@@ -8,15 +13,14 @@
   width: 100%;
 
   background-color: white;
+  border-radius: 24px;
 
-  border-top-left-radius: 24px;
-  border-top-right-radius: 24px;
+  box-shadow: 0px 4px 16px #9A9A9A;
+
   padding: 40px;
 
-  position: fixed;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
+  margin-top: -10vh;
+  margin: -10vh auto 0;
 }
 
 .ToggleArea {
@@ -28,6 +32,7 @@
   display: grid;
   gap: 40px;
   grid-template-rows: 1fr 1fr;
+  justify-items: center;
 }
 
 .CodeArea {

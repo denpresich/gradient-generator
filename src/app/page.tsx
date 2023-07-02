@@ -100,16 +100,17 @@ export default function Home() {
     state.colors.find((c) => c.id === state.selectedColorId) || state.colors[0];
 
   return (
-    <main
-      className="absolute top-0 right-0 bottom-0 left-0"
-      style={{ backgroundImage: gradient }}
-    >
+    <main>
+      <div
+        className={styles.Background}
+        style={{ backgroundImage: gradient }}
+      />
       <div className={styles.Panel}>
         <div className={cn(styles.TypeSelector, styles.ToggleArea)}>
           <TypeToggle
             value={state.type}
             onChange={(type) =>
-              dispatch({ type: "UPDATE_TYPE", payload: { type } })
+              !!type && dispatch({ type: "UPDATE_TYPE", payload: { type } })
             }
           />
           {state.type === GradientType.LINEAR && (
@@ -119,14 +120,20 @@ export default function Home() {
                 <Form.Control asChild>
                   <Input
                     type="number"
+                    value={state.deg}
                     min={0}
                     max={360}
-                    onChange={(e) =>
+                    onChange={(e) => {
+                      const value = Math.min(
+                        Math.max(Number(e.target.value), 0),
+                        360
+                      );
+
                       dispatch({
                         type: "UPDATE_DEG",
-                        payload: { deg: Number(e.target?.value) },
-                      })
-                    }
+                        payload: { deg: value },
+                      });
+                    }}
                   />
                 </Form.Control>
               </Form.Field>
