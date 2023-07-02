@@ -11,6 +11,7 @@ export interface ColorsProps {
   selectedColorId: string;
   onChange: (id: string, color: Color) => void;
   onSelect: (id: string) => void;
+  onRemove: (id: string) => void;
 }
 
 export const Colors: React.FC<ColorsProps> = ({
@@ -18,6 +19,7 @@ export const Colors: React.FC<ColorsProps> = ({
   selectedColorId,
   onChange,
   onSelect,
+  onRemove,
 }) => {
   return (
     <div className={styles["colors"]}>
@@ -33,6 +35,7 @@ export const Colors: React.FC<ColorsProps> = ({
               onChange(color.id, { id: color.id, hex, position })
             }
             onSelect={() => onSelect(color.id)}
+            onRemove={() => onRemove(color.id)}
           />
         ))}
     </div>

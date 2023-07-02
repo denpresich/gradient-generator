@@ -1,6 +1,6 @@
 .color {
   display: grid;
-  grid-template-columns: 40px 3fr 1fr;
+  grid-template-columns: 40px 3fr 1fr 40px;
   align-items: flex-end;
   justify-content: space-between;
   gap: 16px;
@@ -35,4 +35,9 @@
   color: #9A9A9A;
   text-transform: uppercase;
   font-size: 12px;
+}
+
+.remove-icon {
+  cursor: pointer;
+  margin-bottom: 10px;
 }

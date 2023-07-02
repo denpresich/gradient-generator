@@ -1,6 +1,7 @@
 import styles from "./styles.module.css";
 
 import React from "react";
+import Image from "next/image";
 
 import cn from "classnames";
 
@@ -29,6 +30,7 @@ export interface ColorProps {
   selected: boolean;
   onChange: ({ hex, position }: { hex: string; position: number }) => void;
   onSelect: () => void;
+  onRemove: () => void;
 }
 
 export const Color: React.FC<ColorProps> = ({
@@ -37,6 +39,7 @@ export const Color: React.FC<ColorProps> = ({
   selected,
   onChange,
   onSelect,
+  onRemove,
 }) => {
   const [hexValue, setHexValue] = React.useState(hex);
   const [positionValue, setPositionValue] = React.useState(position);
@@ -52,12 +55,12 @@ export const Color: React.FC<ColorProps> = ({
   return (
     <Form.Root
       className={cn(styles["color"], { [styles["color--selected"]]: selected })}
-      onClick={onSelect}
     >
       <div className={styles["color-box"]}>
         <div
           className={styles["color-box__bg"]}
           style={{ backgroundColor: hex }}
+          onClick={onSelect}
         />
       </div>
       <Form.Field className={styles["field"]} name="hex">
@@ -66,6 +69,7 @@ export const Color: React.FC<ColorProps> = ({
           <Input
             type="text"
             value={hexValue}
+            onFocus={onSelect}
             onChange={(e) => setHexValue(e.target.value)}
             onBlur={(e) => {
               const nextHex = fixHexColor(e.target.value);
@@ -84,6 +88,7 @@ export const Color: React.FC<ColorProps> = ({
             min={0}
             max={100}
             value={positionValue.toString()}
+            onFocus={onSelect}
             onChange={(e) => setPositionValue(Number(e.target.value))}
             onBlur={(e) => {
               const nextPosition = adjustPosition(Number(e.target.value));
@@ -94,6 +99,14 @@ export const Color: React.FC<ColorProps> = ({
           />
         </Form.Control>
       </Form.Field>
+      <Image
+        className={styles["remove-icon"]}
+        onClick={onRemove}
+        height={24}
+        width={24}
+        src="/close.svg"
+        alt={`Remove color ${hex}`}
+      />
     </Form.Root>
   );
 };

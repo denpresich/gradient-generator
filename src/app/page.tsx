@@ -130,6 +130,16 @@ export default function Home() {
       payload: { id },
     });
 
+  const handleColorRemove = (id: string) => {
+    console.log("remove");
+
+    state.colors.length > 2 &&
+      dispatch({
+        type: "REMOVE_COLOR",
+        payload: { id },
+      });
+  };
+
   const handleColorPickerChange = (hex: string) =>
     dispatch({
       type: "UPDATE_COLOR",
@@ -182,6 +192,7 @@ export default function Home() {
             selectedColorId={state.selectedColorId}
             onChange={handleColorChange}
             onSelect={handleColorSelect}
+            onRemove={handleColorRemove}
           />
           <ColorPicker
             value={selectedColor?.hex}
