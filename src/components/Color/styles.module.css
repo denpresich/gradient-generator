@@ -1,16 +1,18 @@
-.Color {
-  display: inline-flex;
+.color {
+  display: grid;
+  grid-template-columns: 40px 3fr 1fr;
   align-items: flex-end;
+  justify-content: space-between;
   gap: 16px;
   padding: 16px;
   border-radius: 4px;
 }
 
-.Color--selected {
-  border: 1px solid #9A9A9A;
+.color--selected {
+  background-color: #f5f5f5;
 }
 
-.ColorBox {
+.color-box {
   height: 40px;
   width: 40px;
   padding: 2px;
@@ -18,18 +20,18 @@
   border: 1px solid #E8E8E8;
 }
 
-.ColorBoxBg {
+.color-box__bg {
   height: 100%;
   width: 100%;
   border-radius: 4px;
 }
 
-.Field {
+.field {
   display: inline-flex;
   flex-direction: column;
 }
 
-.Field_Label {
+.field__label {
   color: #9A9A9A;
   text-transform: uppercase;
   font-size: 12px;

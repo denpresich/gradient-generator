@@ -51,14 +51,17 @@ export const Color: React.FC<ColorProps> = ({
 
   return (
     <Form.Root
-      className={cn(styles.Color, { [styles["Color--selected"]]: selected })}
+      className={cn(styles["color"], { [styles["color--selected"]]: selected })}
       onClick={onSelect}
     >
-      <div className={styles.ColorBox}>
-        <div className={styles.ColorBoxBg} style={{ backgroundColor: hex }} />
+      <div className={styles["color-box"]}>
+        <div
+          className={styles["color-box__bg"]}
+          style={{ backgroundColor: hex }}
+        />
       </div>
-      <Form.Field className={styles.Field} name="hex">
-        <Form.Label className={styles.Field_Label}>Hex</Form.Label>
+      <Form.Field className={styles["field"]} name="hex">
+        <Form.Label className={styles["field__label"]}>Hex</Form.Label>
         <Form.Control asChild>
           <Input
             type="text"
@@ -73,8 +76,8 @@ export const Color: React.FC<ColorProps> = ({
           />
         </Form.Control>
       </Form.Field>
-      <Form.Field className={styles.Field} name="position">
-        <Form.Label className={styles.Field_Label}>Stop</Form.Label>
+      <Form.Field className={styles["field"]} name="position">
+        <Form.Label className={styles["field__label"]}>Stop</Form.Label>
         <Form.Control asChild>
           <Input
             type="number"

@@ -20,7 +20,7 @@ export const Colors: React.FC<ColorsProps> = ({
   onSelect,
 }) => {
   return (
-    <div className={styles.Colors}>
+    <div className={styles["colors"]}>
       {colors
         .sort((a, b) => a.position - b.position)
         .map((color) => (

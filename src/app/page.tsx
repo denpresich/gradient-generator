@@ -103,11 +103,16 @@ export default function Home() {
   return (
     <main>
       <div
-        className={styles.Background}
+        className={styles["background"]}
         style={{ backgroundImage: gradient }}
       />
-      <div className={styles.Panel}>
-        <div className={cn(styles.TypeSelector, styles.ToggleArea)}>
+      <div className={styles["panel"]}>
+        <div
+          className={cn(
+            styles["gradient-toggle__selector"],
+            styles["gradient-toggle"]
+          )}
+        >
           <TypeToggle
             value={state.type}
             onChange={(type) =>
@@ -116,8 +121,10 @@ export default function Home() {
           />
           {state.type === GradientType.LINEAR && (
             <Form.Root>
-              <Form.Field className={styles.DegField} name="deg">
-                <Form.Label className={styles.DegField_Label}>Deg</Form.Label>
+              <Form.Field className={styles["deg-field"]} name="deg">
+                <Form.Label className={styles["deg-field__label"]}>
+                  Deg
+                </Form.Label>
                 <Form.Control asChild>
                   <Input
                     type="number"
@@ -141,7 +148,8 @@ export default function Home() {
             </Form.Root>
           )}
         </div>
-        <div className={styles.ColorArea}>
+        <div className={styles["divider"]} />
+        <div className={styles["gradient-color"]}>
           <Colors
             colors={state.colors}
             selectedColorId={state.selectedColorId}
@@ -175,7 +183,7 @@ export default function Home() {
             }
           />
         </div>
-        <div className={styles.CodeArea}>
+        <div className={styles["gradient-code"]}>
           <Code>{`background: ${gradient}`}</Code>
         </div>
       </div>
