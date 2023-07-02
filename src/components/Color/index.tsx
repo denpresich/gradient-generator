@@ -2,6 +2,8 @@ import styles from "./styles.module.css";
 
 import React from "react";
 
+import cn from "classnames";
+
 import { validateHTMLColorHex } from "validate-color";
 
 import * as Form from "@radix-ui/react-form";
@@ -24,10 +26,18 @@ const fixHexColor = (hex: string) => {
 export interface ColorProps {
   hex: string;
   position: number;
+  selected: boolean;
   onChange: ({ hex, position }: { hex: string; position: number }) => void;
+  onSelect: () => void;
 }
 
-export const Color: React.FC<ColorProps> = ({ hex, position, onChange }) => {
+export const Color: React.FC<ColorProps> = ({
+  hex,
+  position,
+  selected,
+  onChange,
+  onSelect,
+}) => {
   const [hexValue, setHexValue] = React.useState(hex);
   const [positionValue, setPositionValue] = React.useState(position);
 
@@ -40,7 +50,10 @@ export const Color: React.FC<ColorProps> = ({ hex, position, onChange }) => {
   }, [position]);
 
   return (
-    <Form.Root className={styles.Color}>
+    <Form.Root
+      className={cn(styles.Color, { [styles["Color--selected"]]: selected })}
+      onClick={onSelect}
+    >
       <div className={styles.ColorBox}>
         <div className={styles.ColorBoxBg} style={{ backgroundColor: hex }} />
       </div>

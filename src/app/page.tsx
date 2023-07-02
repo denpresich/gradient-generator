@@ -19,6 +19,7 @@ import { composeLinearGradient, composeRadialGradient } from "@/utils/color";
 
 type State = {
   colors: Color[];
+  selectedColorId: string;
   deg: number;
   type: GradientType;
 };
@@ -28,7 +29,8 @@ type Action =
   | { type: "REMOVE_COLOR"; payload: { id: string } }
   | { type: "UPDATE_COLOR"; payload: { id: string; color: Color } }
   | { type: "UPDATE_DEG"; payload: { deg: number } }
-  | { type: "UPDATE_TYPE"; payload: { type: GradientType } };
+  | { type: "UPDATE_TYPE"; payload: { type: GradientType } }
+  | { type: "SELECT_COLOR"; payload: { id: string } };
 
 function reducer(state: State, action: Action): State {
   switch (action.type) {
@@ -66,6 +68,9 @@ function reducer(state: State, action: Action): State {
         type,
       };
     }
+    case "SELECT_COLOR": {
+      return { ...state, selectedColorId: action.payload.id };
+    }
     default:
       return state;
   }
@@ -78,6 +83,7 @@ export default function Home() {
       { id: "2", hex: "#26c56b", position: 50 },
       { id: "3", hex: "#35a232", position: 100 },
     ],
+    selectedColorId: "1",
     deg: 90,
     type: GradientType.LINEAR,
   });
@@ -89,6 +95,9 @@ export default function Home() {
         : composeRadialGradient(state.colors),
     [state.colors, state.deg, state.type]
   );
+
+  const selectedColor =
+    state.colors.find((c) => c.id === state.selectedColorId) || state.colors[0];
 
   return (
     <main
@@ -127,14 +136,36 @@ export default function Home() {
         <div className={styles.ColorArea}>
           <Colors
             colors={state.colors}
+            selectedColorId={state.selectedColorId}
             onChange={(id: string, color: Color) =>
               dispatch({
                 type: "UPDATE_COLOR",
                 payload: { id, color },
               })
             }
+            onSelect={(id: string) =>
+              dispatch({
+                type: "SELECT_COLOR",
+                payload: { id },
+              })
+            }
           />
-          <ColorPicker />
+          <ColorPicker
+            value={selectedColor?.hex}
+            onChange={(hex) =>
+              dispatch({
+                type: "UPDATE_COLOR",
+                payload: {
+                  id: state.selectedColorId,
+                  color: {
+                    id: state.selectedColorId,
+                    position: selectedColor.position,
+                    hex,
+                  },
+                },
+              })
+            }
+          />
         </div>
         <div className={styles.CodeArea}>Code block</div>
       </div>

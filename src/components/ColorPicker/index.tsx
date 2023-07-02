@@ -4,10 +4,21 @@ import "./styles.css";
 
 import { HexAlphaColorPicker } from "react-colorful";
 
-export const ColorPicker: React.FC = () => {
+export interface ColorPickerProps {
+  value: string;
+  onChange: (value: string) => void;
+}
+
+export const ColorPicker: React.FC<ColorPickerProps> = ({
+  value,
+  onChange,
+}) => {
   return (
     <div className={"ColorPicker"}>
-      <HexAlphaColorPicker />
+      <HexAlphaColorPicker
+        color={value}
+        onChange={(value) => onChange(value)}
+      />
     </div>
   );
 };
