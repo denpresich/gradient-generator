@@ -1,7 +1,7 @@
 .toggle-group {
   display: inline-flex;
   border-radius: 4px;
-  border: 1px solid lightgray;
+  border: 1px solid #f5f5f5;
 }
 
 .toggle-group__item {

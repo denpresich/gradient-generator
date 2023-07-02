@@ -16,7 +16,11 @@ import styles from "./styles.module.css";
 
 import { GradientType, Color } from "@/shared/types";
 
-import { composeLinearGradient, composeRadialGradient } from "@/utils/color";
+import {
+  composeLinearGradient,
+  composeRadialGradient,
+  random as randomColor,
+} from "@/utils/color";
 
 type State = {
   colors: Color[];
@@ -80,9 +84,9 @@ function reducer(state: State, action: Action): State {
 export default function Home() {
   const [state, dispatch] = React.useReducer(reducer, {
     colors: [
-      { id: "1", hex: "#cb4df2", position: 0 },
-      { id: "2", hex: "#26c56b", position: 50 },
-      { id: "3", hex: "#35a232", position: 100 },
+      { id: "1", hex: "#CB4DF2", position: 0 },
+      { id: "2", hex: "#7C3EFF", position: 50 },
+      { id: "3", hex: "#0072FF", position: 100 },
     ],
     selectedColorId: "1",
     deg: 90,
@@ -130,15 +134,24 @@ export default function Home() {
       payload: { id },
     });
 
-  const handleColorRemove = (id: string) => {
-    console.log("remove");
+  const handleColorAdd = () =>
+    dispatch({
+      type: "ADD_COLOR",
+      payload: {
+        color: {
+          id: Math.random().toString(),
+          hex: randomColor(),
+          position: 100,
+        },
+      },
+    });
 
+  const handleColorRemove = (id: string) =>
     state.colors.length > 2 &&
-      dispatch({
-        type: "REMOVE_COLOR",
-        payload: { id },
-      });
-  };
+    dispatch({
+      type: "REMOVE_COLOR",
+      payload: { id },
+    });
 
   const handleColorPickerChange = (hex: string) =>
     dispatch({
@@ -192,6 +205,7 @@ export default function Home() {
             selectedColorId={state.selectedColorId}
             onChange={handleColorChange}
             onSelect={handleColorSelect}
+            onAdd={handleColorAdd}
             onRemove={handleColorRemove}
           />
           <ColorPicker
