@@ -1,0 +1,40 @@
+.code {
+  position: relative;
+  display: grid;
+  grid-template-areas:
+    'line-numbers headers'
+    'line-numbers content';
+  grid-template-columns: 26px 1fr;
+  grid-template-rows: 40px 1fr;
+
+  height: 100%;
+  width: 100%;
+
+  font-family: 'Fira Code', monospace;
+  background-color: #1B3C70;
+  border-radius: 4px;
+  color: white;
+}
+
+.line-numbers {
+  grid-area: line-numbers;
+}
+
+.header {
+  grid-area: headers;
+}
+
+.content {
+  grid-area: content;
+}
+
+.copy {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  cursor: pointer;
+}
+
+.copy:hover {
+  color: #9A9A9A;
+}

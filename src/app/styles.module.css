@@ -59,10 +59,7 @@
 
 @media (min-width: 1400px) {
   .Panel {
-    grid-template-areas:
-      'toggle toggle toggle toggle'
-      'color color code code';
-    grid-template-rows: 40px 100%;
+    grid-template-rows: 40px 1fr 1fr;
     width: 80%;
   }
 

@@ -10,6 +10,7 @@ import { TypeToggle } from "@/components/TypeToggle";
 import { Colors } from "@/components/Colors";
 import { Input } from "@/components/Input";
 import { ColorPicker } from "@/components/ColorPicker";
+import { Code } from "@/components/Code";
 
 import styles from "./styles.module.css";
 
@@ -174,7 +175,9 @@ export default function Home() {
             }
           />
         </div>
-        <div className={styles.CodeArea}>Code block</div>
+        <div className={styles.CodeArea}>
+          <Code>{`background: ${gradient}`}</Code>
+        </div>
       </div>
     </main>
   );

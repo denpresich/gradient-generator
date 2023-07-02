@@ -1,0 +1,11 @@
+.header {
+  background-color: #112545;
+}
+
+.header-item {
+  padding: 11px;
+  text-align: center;
+  vertical-align: middle;
+  background-color: #1B3C70;
+  width: fit-content;
+}
