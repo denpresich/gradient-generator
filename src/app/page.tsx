@@ -89,16 +89,59 @@ export default function Home() {
     type: GradientType.LINEAR,
   });
 
+  const sortedColors = React.useMemo(
+    () => state.colors.sort((a, b) => a.position - b.position),
+    [state.colors]
+  );
+
   const gradient = React.useMemo(
     () =>
       state.type === GradientType.LINEAR
-        ? composeLinearGradient(state.colors, state.deg)
-        : composeRadialGradient(state.colors),
-    [state.colors, state.deg, state.type]
+        ? composeLinearGradient(sortedColors, state.deg)
+        : composeRadialGradient(sortedColors),
+    [sortedColors, state.deg, state.type]
   );
 
   const selectedColor =
     state.colors.find((c) => c.id === state.selectedColorId) || state.colors[0];
+
+  const handleToggleChange = (type: GradientType) =>
+    type &&
+    dispatch({
+      type: "UPDATE_TYPE",
+      payload: { type },
+    });
+
+  const handleDegChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const deg = Math.min(Math.max(Number(e.target.value), 0), 360);
+
+    dispatch({ type: "UPDATE_DEG", payload: { deg } });
+  };
+
+  const handleColorChange = (id: string, color: Color) =>
+    dispatch({
+      type: "UPDATE_COLOR",
+      payload: { id, color },
+    });
+
+  const handleColorSelect = (id: string) =>
+    dispatch({
+      type: "SELECT_COLOR",
+      payload: { id },
+    });
+
+  const handleColorPickerChange = (hex: string) =>
+    dispatch({
+      type: "UPDATE_COLOR",
+      payload: {
+        id: state.selectedColorId,
+        color: {
+          id: state.selectedColorId,
+          position: selectedColor?.position,
+          hex,
+        },
+      },
+    });
 
   return (
     <main>
@@ -113,12 +156,7 @@ export default function Home() {
             styles["gradient-toggle"]
           )}
         >
-          <TypeToggle
-            value={state.type}
-            onChange={(type) =>
-              !!type && dispatch({ type: "UPDATE_TYPE", payload: { type } })
-            }
-          />
+          <TypeToggle value={state.type} onChange={handleToggleChange} />
           {state.type === GradientType.LINEAR && (
             <Form.Root>
               <Form.Field className={styles["deg-field"]} name="deg">
@@ -131,56 +169,23 @@ export default function Home() {
                     value={state.deg}
                     min={0}
                     max={360}
-                    onChange={(e) => {
-                      const value = Math.min(
-                        Math.max(Number(e.target.value), 0),
-                        360
-                      );
-
-                      dispatch({
-                        type: "UPDATE_DEG",
-                        payload: { deg: value },
-                      });
-                    }}
+                    onChange={handleDegChange}
                   />
                 </Form.Control>
               </Form.Field>
             </Form.Root>
           )}
         </div>
-        <div className={styles["divider"]} />
         <div className={styles["gradient-color"]}>
           <Colors
             colors={state.colors}
             selectedColorId={state.selectedColorId}
-            onChange={(id: string, color: Color) =>
-              dispatch({
-                type: "UPDATE_COLOR",
-                payload: { id, color },
-              })
-            }
-            onSelect={(id: string) =>
-              dispatch({
-                type: "SELECT_COLOR",
-                payload: { id },
-              })
-            }
+            onChange={handleColorChange}
+            onSelect={handleColorSelect}
           />
           <ColorPicker
             value={selectedColor?.hex}
-            onChange={(hex) =>
-              dispatch({
-                type: "UPDATE_COLOR",
-                payload: {
-                  id: state.selectedColorId,
-                  color: {
-                    id: state.selectedColorId,
-                    position: selectedColor.position,
-                    hex,
-                  },
-                },
-              })
-            }
+            onChange={handleColorPickerChange}
           />
         </div>
         <div className={styles["gradient-code"]}>
