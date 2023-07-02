@@ -1,5 +1,6 @@
 .ColorPicker {
   width: 100%;
+  max-width: 100%;
 }
 
 .ColorPicker .react-colorful {

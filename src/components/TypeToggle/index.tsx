@@ -14,19 +14,19 @@ export interface TypeToggleProps {
 export const TypeToggle: React.FC<TypeToggleProps> = ({ value, onChange }) => {
   return (
     <ToggleGroup.Root
-      className={styles.ToggleGroup}
+      className={styles["toggle-group"]}
       type="single"
       value={value}
       onValueChange={onChange}
     >
       <ToggleGroup.Item
-        className={styles.ToggleGroupItem}
+        className={styles["toggle-group__item"]}
         value={GradientType.LINEAR}
       >
         Linear
       </ToggleGroup.Item>
       <ToggleGroup.Item
-        className={styles.ToggleGroupItem}
+        className={styles["toggle-group__item"]}
         value={GradientType.RADIAL}
       >
         Radial
