@@ -1,11 +1,11 @@
 .header {
-  background-color: #112545;
+  background-color: var(--color-darkblue);
 }
 
 .header-item {
   padding: 11px;
   text-align: center;
   vertical-align: middle;
-  background-color: #1B3C70;
+  background-color: var(--color-blue);
   width: fit-content;
 }

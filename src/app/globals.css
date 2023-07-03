@@ -1,5 +1,14 @@
 @tailwind base;
 
+:root {
+  --color-purple: #d3a6f9;
+  --color-lightgray: #F5F5F5;
+  --color-gray: #9A9A9A;
+  --color-blue: #1B3C70;
+  --color-blue2: #28436F;
+  --color-darkblue: #112545;
+}
+
 body {
   box-sizing: border-box;
   background-color: white;

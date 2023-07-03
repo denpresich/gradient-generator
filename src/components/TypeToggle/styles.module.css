@@ -1,7 +1,7 @@
 .toggle-group {
   display: inline-flex;
   border-radius: 4px;
-  border: 1px solid #f5f5f5;
+  border: 1px solid var(--color-lightgray);
 }
 
 .toggle-group__item {
@@ -22,5 +22,5 @@
 }
 
 .toggle-group__item[data-state='on'] {
-  background-color: #E9CFFE;
+  background-color: var(--color-purple);
 }

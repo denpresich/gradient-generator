@@ -4,5 +4,5 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #28436F;
+  background-color: var(--color-blue2);
 }

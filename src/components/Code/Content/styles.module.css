@@ -1,4 +1,4 @@
 .content {
   padding: 8px;
-  background-color: #1B3C70;
+  background-color: var(--color-blue);
 }
