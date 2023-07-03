@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 
 import * as Form from "@radix-ui/react-form";
 
@@ -173,7 +174,7 @@ export default function Home() {
         style={{ backgroundImage: gradient }}
       />
       <div className={styles["panel"]}>
-        <div
+        <section
           className={cn(
             styles["gradient-toggle__selector"],
             styles["gradient-toggle"]
@@ -198,8 +199,8 @@ export default function Home() {
               </Form.Field>
             </Form.Root>
           )}
-        </div>
-        <div className={styles["gradient-color"]}>
+        </section>
+        <section className={styles["gradient-color"]}>
           <Colors
             colors={state.colors}
             selectedColorId={state.selectedColorId}
@@ -212,10 +213,27 @@ export default function Home() {
             value={selectedColor?.hex}
             onChange={handleColorPickerChange}
           />
-        </div>
-        <div className={styles["gradient-code"]}>
+        </section>
+        <section className={styles["gradient-code"]}>
           <Code>{`background: ${gradient}`}</Code>
-        </div>
+        </section>
+        <section className={styles["gradient-contact"]}>
+          <p>
+            Made by{" "}
+            <Link className={styles["link"]} href="https://denyspresich.com">
+              Denys Presich
+            </Link>
+          </p>
+          <p>
+            {"Project's code is available at "}
+            <Link
+              className={styles["link"]}
+              href="https://github.com/denpresich/gradient-generator"
+            >
+              GitHub
+            </Link>
+          </p>
+        </section>
       </div>
     </main>
   );
