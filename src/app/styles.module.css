@@ -28,7 +28,7 @@
   padding: 16px;
   border-bottom: 1px solid #f5f5f5;
   display: grid;
-  gap: 40px;
+  gap: 16px;
   grid-template-rows: min-content 1fr;
   align-items: center;
   justify-items: center;
@@ -41,8 +41,9 @@
 
 .gradient-toggle__selector {
   display: flex;
-  gap: 36px;
+  gap: 8px;
   align-items: center;
+  justify-content: space-between;
 }
 
 .deg-field {
@@ -66,10 +67,16 @@
     grid-template-columns: min-content 1fr;
     grid-template-rows: 1fr;
     padding: 40px;
+    gap: 40px;
   }
 
   .gradient-code {
     padding: 40px;
+  }
+
+  .gradient-toggle__selector {
+    gap: 32px;
+    justify-content: flex-start;
   }
 }
 
