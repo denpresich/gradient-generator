@@ -52,6 +52,26 @@ export const Color: React.FC<ColorProps> = ({
     setPositionValue(position);
   }, [position]);
 
+  const handleHexInputChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setHexValue(e.target.value);
+
+  const handleHexInputBlur = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const nextHex = fixHexColor(e.target.value);
+
+    setHexValue(nextHex);
+    onChange({ position, hex: nextHex });
+  };
+
+  const handlePositionInputChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setPositionValue(Number(e.target.value));
+
+  const handlePositionInputBlur = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const nextPosition = adjustPosition(Number(e.target.value));
+
+    setPositionValue(nextPosition);
+    onChange({ hex, position: nextPosition });
+  };
+
   return (
     <Form.Root
       className={cn(styles["color"], { [styles["color--selected"]]: selected })}
@@ -70,13 +90,8 @@ export const Color: React.FC<ColorProps> = ({
             type="text"
             value={hexValue}
             onFocus={onSelect}
-            onChange={(e) => setHexValue(e.target.value)}
-            onBlur={(e) => {
-              const nextHex = fixHexColor(e.target.value);
-
-              setHexValue(e.target.value);
-              onChange({ position, hex: nextHex });
-            }}
+            onChange={handleHexInputChange}
+            onBlur={handleHexInputBlur}
           />
         </Form.Control>
       </Form.Field>
@@ -89,21 +104,16 @@ export const Color: React.FC<ColorProps> = ({
             max={100}
             value={positionValue.toString()}
             onFocus={onSelect}
-            onChange={(e) => setPositionValue(Number(e.target.value))}
-            onBlur={(e) => {
-              const nextPosition = adjustPosition(Number(e.target.value));
-
-              setPositionValue(nextPosition);
-              onChange({ hex, position: nextPosition });
-            }}
+            onChange={handlePositionInputChange}
+            onBlur={handlePositionInputBlur}
           />
         </Form.Control>
       </Form.Field>
       <Image
         className={styles["remove-icon"]}
         onClick={onRemove}
-        height={24}
-        width={24}
+        height={16}
+        width={16}
         src="/close.svg"
         alt={`Remove color ${hex}`}
       />
